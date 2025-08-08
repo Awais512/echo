@@ -1,15 +1,12 @@
+import { AuthLayout } from "@/modules/auth/ui/components/layouts/auth-layout";
 import React from "react";
 
 interface Props {
   children: React.ReactNode;
 }
 
-const AuthLayout = ({ children }: Props) => {
-  return (
-    <div className="min-h-screen min-w-screen h-full flex flex-col items-center justify-center">
-      {children}
-    </div>
-  );
+const Layout = ({ children }: Props) => {
+  return <AuthLayout>{children}</AuthLayout>;
 };
 
-export default AuthLayout;
+export default Layout;
