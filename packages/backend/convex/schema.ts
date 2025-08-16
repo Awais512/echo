@@ -15,6 +15,7 @@ export default defineSchema({
         platform: v.optional(v.string()),
         vendor: v.optional(v.string()),
         screenResolution: v.optional(v.string()),
+        viewportSize: v.optional(v.string()),
         timezone: v.optional(v.string()),
         timezoneOffset: v.optional(v.number()),
         cookieEnabled: v.optional(v.boolean()),
