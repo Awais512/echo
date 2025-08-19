@@ -14,6 +14,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as public_contactSession from "../public/contactSession.js";
+import type * as public_organizations from "../public/organizations.js";
 import type * as users from "../users.js";
 
 /**
@@ -26,6 +27,7 @@ import type * as users from "../users.js";
  */
 declare const fullApi: ApiFromModules<{
   "public/contactSession": typeof public_contactSession;
+  "public/organizations": typeof public_organizations;
   users: typeof users;
 }>;
 export declare const api: FilterApi<
