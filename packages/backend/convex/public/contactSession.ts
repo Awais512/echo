@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 
-const SESSION_DURATION_MS = 24 * 60 * 60 * 1000;
+const SESSION_DURATION_MS = 5000;
 
 export const create = mutation({
   args: {
@@ -29,7 +29,7 @@ export const create = mutation({
     const now = Date.now();
     const expiresAt = now + SESSION_DURATION_MS;
 
-    const contactSessionId = await ctx.db.insert("contactSession", {
+    const contactSessionId = await ctx.db.insert("contactSessions", {
       name: args.name,
       email: args.email,
       organizationId: args.organizationId,
@@ -38,5 +38,22 @@ export const create = mutation({
     });
 
     return contactSessionId;
+  },
+});
+
+export const validate = mutation({
+  args: { contactSessionId: v.id("contactSessions") },
+  handler: async (ctx, args) => {
+    const contactSession = await ctx.db.get(args.contactSessionId);
+
+    if (!contactSession) {
+      return { valid: false, reason: "Contact Session not found" };
+    }
+
+    if (contactSession.expiresAt < Date.now()) {
+      return { valid: false, reason: "Contact Session not found" };
+    }
+
+    return { valid: true, contactSession };
   },
 });
