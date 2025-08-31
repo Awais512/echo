@@ -28,6 +28,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
+import { ConversationStatusButton } from "../components/conversation-status-button";
+import { useState } from "react";
 
 interface ConversationIdViewProps {
   conversationId: Id<"conversations">;
@@ -76,12 +78,52 @@ export const ConversationIdView = ({
     }
   };
 
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
+
+  const updateConversationStatus = useMutation(
+    api.private.conversations.updateStatusMutation
+  );
+  const handleToggleStatus = async () => {
+    if (!conversation) {
+      return;
+    }
+
+    setIsUpdatingStatus(true);
+
+    let newStatus: "unresolved" | "resolved" | "escalated";
+    if (conversation.status === "unresolved") {
+      newStatus = "escalated";
+    } else if (conversation.status === "escalated") {
+      newStatus = "resolved";
+    } else {
+      newStatus = "unresolved";
+    }
+
+    try {
+      await updateConversationStatus({
+        conversationId,
+        status: newStatus,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsUpdatingStatus(false);
+    }
+  };
+
   return (
     <div className="flex h-full flex-col bg-muted">
       <header className="flex items-center justify-between border-b bg-background p-2.5">
         <Button size="sm" variant="ghost">
           <MoreHorizontalIcon />
         </Button>
+        {!!conversation && (
+          <ConversationStatusButton
+            onClick={handleToggleStatus}
+            status={conversation.status}
+            disabled={isUpdatingStatus}
+          />
+        )}
       </header>
       <AIConversation className="max-h-[calc(100vh-180px)]">
         <AIConversationContent>
@@ -136,7 +178,7 @@ export const ConversationIdView = ({
 
             <AIInputToolbar>
               <AIInputTools>
-                <AIInputButton>
+                <AIInputButton disabled={conversation?.status === "resolved"}>
                   <Wand2Icon />
                   Enhance
                 </AIInputButton>
