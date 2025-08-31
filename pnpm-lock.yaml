@@ -29,9 +29,12 @@ importers:
       '@clerk/nextjs':
         specifier: ^6.29.0
         version: 6.29.0(next@15.2.3(@babel/core@7.28.0)(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@convex-dev/agent':
+        specifier: 0.1.16
+        version: 0.1.16(ai@4.3.19(react@19.0.0)(zod@3.25.67))(convex-helpers@0.1.100(convex@1.25.4(@clerk/clerk-react@5.39.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(zod@3.25.67))(convex@1.25.4(@clerk/clerk-react@5.39.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0))(react@19.0.0)
       '@hookform/resolvers':
         specifier: 5.2.0
-        version: 5.2.0(react-hook-form@7.62.0(react@19.0.0))
+        version: 5.2.0(react-hook-form@7.61.1(react@19.0.0))
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -165,8 +168,8 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
       react-hook-form:
-        specifier: ^7.62.0
-        version: 7.62.0(react@19.0.0)
+        specifier: 7.61.1
+        version: 7.61.1(react@19.0.0)
       react-resizable-panels:
         specifier: ^3.0.4
         version: 3.0.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -4637,12 +4640,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
-  react-hook-form@7.62.0:
-    resolution: {integrity: sha512-7KWFejc98xqG/F4bAxpL41NB3o1nnvQO1RWZT3TqRZYL8RryQETGfEdVnJN2fy1crCiBLLjkRBVK05j24FxJGA==}
-    engines: {node: '>=18.0.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17 || ^18 || ^19
-
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -5997,11 +5994,6 @@ snapshots:
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.61.1(react@19.0.0)
-
-  '@hookform/resolvers@5.2.0(react-hook-form@7.62.0(react@19.0.0))':
-    dependencies:
-      '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.62.0(react@19.0.0)
 
   '@humanfs/core@0.19.1': {}
 
@@ -10088,10 +10080,6 @@ snapshots:
       scheduler: 0.25.0
 
   react-hook-form@7.61.1(react@19.0.0):
-    dependencies:
-      react: 19.0.0
-
-  react-hook-form@7.62.0(react@19.0.0):
     dependencies:
       react: 19.0.0
 
