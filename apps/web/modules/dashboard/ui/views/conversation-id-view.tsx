@@ -4,7 +4,7 @@ import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
 import { api } from "@workspace/backend/_generated/api";
 import { Id } from "@workspace/backend/_generated/dataModel";
 import { Button } from "@workspace/ui/components/button";
-import { useMutation, useQuery } from "convex/react";
+import { useAction, useMutation, useQuery } from "convex/react";
 import { MoreHorizontalIcon, Wand2Icon } from "lucide-react";
 import {
   AIConversation,
@@ -71,6 +71,24 @@ export const ConversationIdView = ({
       message: "",
     },
   });
+
+  const [isEnhancing, setIsEnhancing] = useState(false);
+  const enhanceResponse = useAction(api.private.messages.enhanceResponse);
+
+  const handleEnhanceResponse = async () => {
+    setIsEnhancing(true);
+    const currentValue = form.getValues("message");
+
+    try {
+      const response = await enhanceResponse({ prompt: currentValue });
+
+      form.setValue("message", response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsEnhancing(false);
+    }
+  };
 
   const createMessahe = useMutation(api.private.messages.create);
 
@@ -172,7 +190,8 @@ export const ConversationIdView = ({
                 <AIInputTextarea
                   disabled={
                     conversation?.status === "resolved" ||
-                    form.formState.isSubmitting
+                    form.formState.isSubmitting ||
+                    isEnhancing
                   }
                   onChange={field.onChange}
                   onKeyDown={(e) => {
@@ -193,16 +212,24 @@ export const ConversationIdView = ({
 
             <AIInputToolbar>
               <AIInputTools>
-                <AIInputButton disabled={conversation?.status === "resolved"}>
+                <AIInputButton
+                  disabled={
+                    conversation?.status === "resolved" ||
+                    isEnhancing ||
+                    !form.formState.isValid
+                  }
+                  onClick={handleEnhanceResponse}
+                >
                   <Wand2Icon />
-                  Enhance
+                  {isEnhancing ? "Enhancing..." : "Enhance"}
                 </AIInputButton>
               </AIInputTools>
               <AIInputSubmit
                 disabled={
                   conversation?.status === "resolved" ||
                   !form.formState.isValid ||
-                  form.formState.isSubmitting
+                  form.formState.isSubmitting ||
+                  isEnhancing
                 }
                 status="ready"
                 type="submit"
