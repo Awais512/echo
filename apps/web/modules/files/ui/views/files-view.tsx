@@ -24,6 +24,7 @@ import { Button } from "@workspace/ui/components/button";
 import { FileIcon, MoreHorizontal, PlusIcon, TrashIcon } from "lucide-react";
 import { Uploaddialog } from "../components/upload-dialog";
 import { useState } from "react";
+import { DeleteFileDialog } from "../components/delete-file-dialog";
 
 export const FilesView = () => {
   const files = usePaginatedQuery(
@@ -45,9 +46,26 @@ export const FilesView = () => {
   });
 
   const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+  const [selectedFile, setSelectedFile] = useState<PublicFile | null>(null);
+  const handleDeleteClick = (file: PublicFile) => {
+    setSelectedFile(file);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleFileDeleted = () => {
+    setSelectedFile(null);
+  };
 
   return (
     <>
+      <DeleteFileDialog
+        onOpenChange={setDeleteDialogOpen}
+        open={deleteDialogOpen}
+        file={selectedFile}
+        onDeleted={handleFileDeleted}
+      />
       <Uploaddialog
         onOpenChange={setUploadDialogOpen}
         open={uploadDialogOpen}
@@ -130,7 +148,7 @@ export const FilesView = () => {
                           <DropdownMenuContent align="end">
                             <DropdownMenuItem
                               className="text-destructive"
-                              onClick={() => {}}
+                              onClick={() => handleDeleteClick(file)}
                             >
                               <TrashIcon className="size-4 mr-2" />
                               Delete
