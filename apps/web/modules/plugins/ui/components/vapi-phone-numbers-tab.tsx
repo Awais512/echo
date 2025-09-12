@@ -1,23 +1,8 @@
 "use client";
 
-import {
-  CheckCircleIcon,
-  CopyIcon,
-  ExternalLinkIcon,
-  MoreHorizontalIcon,
-  PhoneIcon,
-  XCircleIcon,
-} from "lucide-react";
-import { toast } from "sonner";
-
+import { CheckCircleIcon, PhoneIcon, XCircleIcon } from "lucide-react";
 import { Badge } from "@workspace/ui/components/badge";
-import { Button } from "@workspace/ui/components/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu";
+
 import {
   Table,
   TableBody,
@@ -30,14 +15,6 @@ import { useVapiPhoneNumbers } from "../../hooks/use-vapi-data";
 
 export const VapiPhoneNumbersTab = () => {
   const { data: phoneNumbers, isLoading } = useVapiPhoneNumbers();
-
-  const copyToClipboard = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch (error) {
-      toast.error("Failed to copy");
-    }
-  };
 
   return (
     <div className="border-t bg-background">
@@ -81,7 +58,9 @@ export const VapiPhoneNumbersTab = () => {
                 <TableCell className="px-6 py-4">
                   <div className="flex items-center gap-3">
                     <PhoneIcon className="size-4 text-muted-foreground" />
-                    <span>{phone.number || "Not configured"}</span>
+                    <span className="font-mono">
+                      {phone.number || "Not configured"}
+                    </span>
                   </div>
                 </TableCell>
 

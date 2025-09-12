@@ -18,6 +18,7 @@ import {
   TabsTrigger,
 } from "@workspace/ui/components/tabs";
 import { VapiPhoneNumbersTab } from "./vapi-phone-numbers-tab";
+import { VapiAssistantsTab } from "./vapi-assistants-tab";
 
 interface VapiConnectedViewProps {
   onDisconnect: () => void;
@@ -98,7 +99,9 @@ export const VapiConnectedView = ({ onDisconnect }: VapiConnectedViewProps) => {
           <TabsContent value="phone-numbers">
             <VapiPhoneNumbersTab />
           </TabsContent>
-          <TabsContent value="assistants">TODO: AI Assistants</TabsContent>
+          <TabsContent value="assistants">
+            <VapiAssistantsTab />
+          </TabsContent>
         </Tabs>
       </div>
     </div>
