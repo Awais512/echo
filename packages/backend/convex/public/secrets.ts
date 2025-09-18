@@ -38,7 +38,7 @@ export const getVapiSecrets = action({
     }
 
     return {
-      publicKey: secretData.publicApiKey,
+      publicApiKey: secretData.publicApiKey,
     };
   },
 });

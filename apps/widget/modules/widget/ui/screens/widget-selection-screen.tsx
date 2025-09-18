@@ -2,14 +2,16 @@
 
 import { Button } from "@workspace/ui/components/button";
 import { WidgetHeader } from "../components/widget-header";
-import { ChevronRightIcon, MessageSquareTextIcon } from "lucide-react";
+import { ChevronRightIcon, MessageSquareTextIcon, MicIcon } from "lucide-react";
 import { useAtomValue, useSetAtom } from "jotai";
 import {
   contactSessionIdAtomFamily,
   conversationIdAtom,
   errorMessageAtom,
+  hasVapiSecretsAtom,
   organizationIdAtom,
   screenAtom,
+  widgetSettingsAtom,
 } from "../../atoms/widget-atoms";
 import { useMutation } from "convex/react";
 import { api } from "@workspace/backend/_generated/api";
@@ -20,6 +22,10 @@ export const WidgetSelectionScreen = () => {
   const setScreen = useSetAtom(screenAtom);
   const setErrorMessage = useSetAtom(errorMessageAtom);
   const setConversationId = useSetAtom(conversationIdAtom);
+
+  const widgetSettings = useAtomValue(widgetSettingsAtom);
+  const hasVapiSecrets = useAtomValue(hasVapiSecretsAtom);
+
   const organizationId = useAtomValue(organizationIdAtom);
   const contactSessionId = useAtomValue(
     contactSessionIdAtomFamily(organizationId || "")
@@ -70,10 +76,39 @@ export const WidgetSelectionScreen = () => {
         >
           <div className="flex items-center gap-x-2">
             <MessageSquareTextIcon className="size-4" />
-            <span>StartChat</span>
+            <span>Start Chat</span>
           </div>
           <ChevronRightIcon />
         </Button>
+
+        {hasVapiSecrets && widgetSettings?.vapiSettings?.assistanceId && (
+          <Button
+            className="h-16 w-full justify-between"
+            variant="outline"
+            onClick={handleNewConversation}
+            disabled={isPending}
+          >
+            <div className="flex items-center gap-x-2">
+              <MicIcon className="size-4" />
+              <span>Start Voice Call</span>
+            </div>
+            <ChevronRightIcon />
+          </Button>
+        )}
+        {hasVapiSecrets && widgetSettings?.vapiSettings?.phoneNumber && (
+          <Button
+            className="h-16 w-full justify-between"
+            variant="outline"
+            onClick={handleNewConversation}
+            disabled={isPending}
+          >
+            <div className="flex items-center gap-x-2">
+              <MicIcon className="size-4" />
+              <span>Call Us</span>
+            </div>
+            <ChevronRightIcon />
+          </Button>
+        )}
       </div>
       <WidgetFooter />
     </>
