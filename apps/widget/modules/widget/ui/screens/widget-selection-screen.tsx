@@ -85,7 +85,7 @@ export const WidgetSelectionScreen = () => {
           <Button
             className="h-16 w-full justify-between"
             variant="outline"
-            onClick={handleNewConversation}
+            onClick={() => setScreen("voice")}
             disabled={isPending}
           >
             <div className="flex items-center gap-x-2">
@@ -99,7 +99,7 @@ export const WidgetSelectionScreen = () => {
           <Button
             className="h-16 w-full justify-between"
             variant="outline"
-            onClick={handleNewConversation}
+            onClick={() => setScreen("contact")}
             disabled={isPending}
           >
             <div className="flex items-center gap-x-2">
