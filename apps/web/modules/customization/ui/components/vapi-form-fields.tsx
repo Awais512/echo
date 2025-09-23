@@ -100,10 +100,10 @@ export const VapiFormFields = ({ form }: VapiFormFieldsProps) => {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="none">None</SelectItem>
+                <SelectItem value="none" key="none">None</SelectItem>
                 {phoneNumbers.map((phoneNumber) => (
-                  <SelectItem value={phoneNumber.id} key={phoneNumber.id}>
-                    {phoneNumber.name || "Unknown"} -{" "}
+                  <SelectItem value={phoneNumber.number || phoneNumber.id} key={phoneNumber.id}>
+                    {phoneNumber.number || "Unknown"} -{" "}
                     {phoneNumber.name || "Unnamed"}
                   </SelectItem>
                 ))}
