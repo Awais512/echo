@@ -1,4 +1,4 @@
-import { VapiClient, Vapi } from "@vapi-ai/server-sdk";
+import { VapiClient } from "@vapi-ai/server-sdk";
 import { internal } from "../_generated/api";
 import { action } from "../_generated/server";
 import { getSecretValue, parseSecretString } from "../lib/secrets";
