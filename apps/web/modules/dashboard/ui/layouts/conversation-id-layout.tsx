@@ -3,6 +3,7 @@ import {
   ResizableHandle,
   ResizablePanelGroup,
 } from "@workspace/ui/components/resizable";
+import { ContactPanel } from "../components/contact-panel";
 
 export const ConversationIdLayout = ({
   children,
@@ -15,8 +16,13 @@ export const ConversationIdLayout = ({
         <div className="flex flex-col h-full flex-1">{children}</div>
       </ResizablePanel>
       <ResizableHandle className="hidden lg:block" />
-      <ResizablePanel className="hidden lg:block" defaultSize={40} maxSize={40}>
-        <div>Contact Panel</div>
+      <ResizablePanel
+        className="hidden lg:block"
+        defaultSize={40}
+        maxSize={40}
+        minSize={20}
+      >
+        <ContactPanel />
       </ResizablePanel>
     </ResizablePanelGroup>
   );
