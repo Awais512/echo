@@ -14,7 +14,7 @@ import { Id } from "@workspace/backend/_generated/dataModel";
 import { Button } from "@workspace/ui/components/button";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { useQuery } from "convex/react";
-import { GlobeIcon, MailIcon, MonitorIcon } from "lucide-react";
+import { ClockIcon, GlobeIcon, MailIcon, MonitorIcon } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
@@ -144,6 +144,17 @@ export const ContactPanel = () => {
           {
             label: "UTC offset",
             value: contactSession.metadata.timezoneOffset,
+          },
+        ],
+      },
+      {
+        id: "session-details",
+        icon: ClockIcon,
+        title: "Session Details",
+        items: [
+          {
+            label: "Session Started",
+            value: new Date(contactSession._creationTime).toLocaleString(),
           },
         ],
       },
