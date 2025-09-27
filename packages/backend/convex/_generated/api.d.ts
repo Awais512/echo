@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as http from "../http.js";
 import type * as lib_extractTextContent from "../lib/extractTextContent.js";
 import type * as lib_secrets from "../lib/secrets.js";
 import type * as playground from "../playground.js";
@@ -53,6 +54,7 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  http: typeof http;
   "lib/extractTextContent": typeof lib_extractTextContent;
   "lib/secrets": typeof lib_secrets;
   playground: typeof playground;
