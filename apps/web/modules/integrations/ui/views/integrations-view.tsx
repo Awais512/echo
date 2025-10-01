@@ -7,7 +7,7 @@ import { Label } from "@workspace/ui/components/label";
 import { Separator } from "@workspace/ui/components/separator";
 import { CopyIcon } from "lucide-react";
 import { toast } from "sonner";
-import { INTEGRATIONS } from "../../constants";
+import { IntegrationId, INTEGRATIONS } from "../../constants";
 import Image from "next/image";
 import {
   Dialog,
@@ -17,13 +17,23 @@ import {
   DialogTitle,
 } from "@workspace/ui/components/dialog";
 import { useState } from "react";
+import { createScript } from "../../utils";
 
 export const IntegrationsView = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedSnippet, setselectedSnippet] = useState("");
   const { organization } = useOrganization();
 
-  const handleIntegrationClick = () => {};
+  const handleIntegrationClick = (integrationId: IntegrationId) => {
+    if (!organization) {
+      toast.error("Organization ID not found");
+      return;
+    }
+
+    const snippet = createScript(integrationId, organization.id);
+    setselectedSnippet(snippet);
+    setDialogOpen(true);
+  };
 
   const handleCopy = async () => {
     try {
@@ -79,7 +89,7 @@ export const IntegrationsView = () => {
                 <button
                   className="flex items-center gap-4 rounded-lg border bg-background p-4 hover:bg-accent"
                   key={integration.id}
-                  onClick={() => setDialogOpen(true)}
+                  onClick={() => handleIntegrationClick(integration.id)}
                   type="button"
                 >
                   <Image
